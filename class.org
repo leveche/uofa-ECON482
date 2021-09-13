@@ -1,0 +1,64 @@
+#+STARTUP: indent
+#+OPTIONS: toc:nil num:nil
+#+TITLE: ECON 482
+#+LaTeX_CLASS_OPTIONS: [article,letterpaper,times,10pt,margin=0.7in]
+#+LATEX_HEADER: \usepackage[margin=0.7in]{geometry}
+#+AUTHOR: %%AUTHOR%% | %%STUDID%%
+
+#+DATE: Winter 2022
+#+LaTeX_HEADER: \usepackage{lastpage}
+#+LATEX_HEADER: \usepackage{fancyhdr}
+#+LATEX_HEADER: \pagestyle{fancy}
+#+LATEX_HEADER: \usepackage{bbm}
+#+LATEX_HEADER: \chead{} %%%AUTHOR%% | %%STUDID%%
+#+LATEX_HEADER: \lhead{total pages: \pageref{LastPage}}
+#+LATEX_HEADER: \rhead{this is page \thepage}
+#+LATEX_HEADER: \lfoot{}
+#+LATEX_HEADER: \cfoot{ECON 482 Winter 2022}
+#+LATEX_HEADER: \rfoot{}
+#+LATEX: \renewcommand{\footrulewidth}{0.4pt}
+#+LATEX_HEADER: \usepackage{gauss}
+#+LATEX: \linespread{1.3}
+
+#+LATEX_HEADER: \newtheorem{definition}{Definition}
+#+LATEX_HEADER: \newtheorem{theorem}{Theorem}
+#+LATEX_HEADER: \newtheorem{proof}{Proof}
+#+LATEX: \newcommand\gamble[1]{\tilde{#1}}
+#+LATEX: \newcommand\mathexp[1]{\mathbbm{E}[#1]}
+#+LATEX: \newcommand\variance[1]{\mathbbm{V}[#1]}
+#+LATEX: \newcommand\FG{{\rm FG}}
+
+* Risk Aversion
+
+Let $u$ be the utility function of an agent who currently has weath $w$ and
+is facing a /risk/; a random variable $\tilde{z}$ representing a payoff in the current period.
+
+A /standard prospect/ is $\tilde{z} = (-\sigma,p\,;\,+\sigma, 1-p)$. The set of /fair gambles/
+is \(\FG := \{\gamble{z} : \mathexp{\gamble{z}} = 0 \}\)
+
+The agent is maximizing her *expected utility* under the risk.
+
+#+BEGIN_definition
+  An agent is \emph{risk averse} if she dislikes any fair gamble, at any level of her wealth:
+\[\mathexp{u (w + \gamble{z})} \leq u(w) \quad \forall w\, \forall \gamble{z}\in {\rm \FG} \]
+#+END_definition
+
+#+BEGIN_theorem
+$u$ risk averse iff concave, i.e. $u''<0$
+#+END_theorem
+
+#+BEGIN_proof
+Sufficiency: Assuming sufficient regularity of $u$, \emph{for any $z$} in a neighborhood of $\mathexp{\gamble{z}}$ holds
+\[u(w + z) = u(w + \mathexp{\gamble{z}})  + (z-\mathexp{\gamble{z}})\,u'|_{w+\mathexp{\gamble{z}}}
+   {} + \frac{1}{2}(z-\mathexp{\gamble{z}})^2\,u''|_\xi \]
+for some $\xi$ in $\{ |\mathexp{\gamble{z}} - \xi| < |\mathexp{\gamble{z}} - z|\}$.
+So the expectation \[\mathexp{u(w+\gamble{z})} = u(w+\mathexp{\gamble{z}}) + 0
+     {} + \frac{1}{2}\mathexp{ (\gamble{z} - \mathexp{\gamble{z}})^2 \, u''|_{\xi(\gamble{z})}}
+\] since $\mathexp{\gamble{z}-\mathexp{\gamble{z}}} = 0$.
+
+Thus, if $u''(\xi) < 0$, $u$ is risk-averse.
+
+Necessity is given by Jensen's inequality: if $u$ is convex around any point $w$ then
+$\frac{u(w+\delta) + u(w-\delta)}{2} \geq u(w)$, i.e. the standard prospect $(\mp\delta, \frac{1}{2})$
+will be preferred to certainty of $w$.
+#+END_proof
