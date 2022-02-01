@@ -1,0 +1,93 @@
+#+STARTUP: indent
+#+OPTIONS: toc:nil num:nil
+#+TITLE: ECON 482 Homework 1
+#+LaTeX_CLASS_OPTIONS: [article,letterpaper,times,10pt,margin=0.7in]
+#+LATEX_HEADER: \usepackage[margin=0.7in]{geometry}
+#+AUTHOR: %%AUTHOR%%
+
+#+DATE: due: January 31^{st}, 2021
+#+LaTeX_HEADER: \usepackage{lastpage}
+#+LATEX_HEADER: \usepackage{fancyhdr}
+#+LATEX_HEADER: \usepackage{amsmath}
+#+LATEX_HEADER: \usepackage{bbm}
+#+LATEX_HEADER: \pagestyle{fancy}
+#+LATEX_HEADER: \chead{}
+#+LATEX_HEADER: \lhead{total pages: \pageref{LastPage}}
+#+LATEX_HEADER: \rhead{this is page \thepage}
+#+LATEX_HEADER: \lfoot{}
+#+LATEX_HEADER: \cfoot{ECON 482 Winter 2022}
+#+LATEX_HEADER: \rfoot{}
+#+LATEX: \renewcommand{\footrulewidth}{0.4pt}
+#+LATEX_HEADER: \newcommand{\Lagr}{\mathcal{L}}
+
+#+LATEX: \linespread{1.5}
+
+
+* Q1
+Robinson Crusoe cannot beget coconuts; the only solution satisfying the boundary
+condition $K_{t=0}=0$ is the boring, and, for Mr. Crusoe, unfortunate
+\[ K(t) = 0 \ \forall t\geq0 \]
+* Q2 Model
+** Optimization problem
+The capital stock $K$ of coconuts is subject to the control variable $c=c(t)$,
+consumption by Robinson at any given time. Robinson is impatient and
+continuously disconts the utility of his future consumption at rate $\rho>0$.
+The utility does not explicitly depend on the current state $K$: $u = u(c)$, in particular
+$u_K = 0$
+
+The goal is to maximize the total lifetime discounted utility, by choosing a consumption path $c(t)$:
+\begin{equation} \max_{c(t)} \int_{t=0}^\infty\,e^{-\rho t}\,u(c)\,dt \end{equation}
+
+The capital accumulation is constrained by its natural increment
+and the contol input; a coconut eaten is coconut not planted:
+\begin{equation} \dot{K} \leq f(K) - c \end{equation}
+
+** Current-Value Hamiltionian
+\begin{equation} H = u(c) + m \cdot (f - c) \end{equation}
+
+Where the autonomous behavior of $K$ is given[fn::this is in contrast to e.g. Solow model, where the natural tendency of capital is always to depreciate]
+by $\dot{K}=f(K), sign(f'(K)) = sign (\kappa-K)$ for some environment capacity $\kappa>0$, and $f$ is everywhere concave: $f''<0$. In particular, $f_c = 0$.
+
+* Q3 Pontryagin conditions
+- Intratemporal Allocation. The shadow price of a consumed coconut is its marginal utility:
+  \begin{equation} H_c = u_c + m \cdot (f - c)_c = 0 = c_u - m \end{equation}
+- Intertemporal Optimality. decay rate of the shadow price is the combination of discount factor and capital accumulation:
+  \begin{equation} H_K = u_K + m \cdot (f' - 0) = m f' = \rho m - \dot{m} \end{equation}
+  which we recognize as a separable ODE:
+
+#+NAME: mdot
+  \begin{equation}\frac{\dot{m}}{m} = \rho-f' \end{equation}
+
+- Resource Constraint. Tomorrow's coconut grow from today's unconsumed ones
+
+#+NAME: Kdot
+  \begin{equation} H_m = f - c = \dot{K} \end{equation}
+
+- No Bequests:
+  \begin{equation} \lim_{t\to\infty} m(t)\, u(t)\, e^{-\rho t} = 0 \end{equation}
+
+* Q4 Phase Portrait
+Equations 7 \ref{Kdot} and 6 \ref{mdot} together yield the phase plane equation
+\[\frac{dK}{dm} = \frac{f-c}{m(\rho-f')}\]
+
+Note that the $m$ -isocline is given by $\rho = f'$, which, given that $f''<0$
+has at most one solution[fn::by the mean value theorem] for $f'$ and therefore for $K$.
+Assume this exists and denote it by $K^*$. Note that clearly $0<K^*<\kappa$.
+
+For $K$ -isocline, we recall that the usual requirements on $u(c)$ is declining
+marginal utility, so we intuitively[fn::if we take $u=\ln(c)$, this would be
+exact] treat $m$ as inverse of $c$.
+An isocline has to asymtotically approach $K=0$ and $K=\kappa$ since the value of $f$ approaches
+zero there[fn::for a concrete example, consider logistic equation $f=K(A-K)$], and attains a
+minimum corresponding to $f'=0$.
+
+We see from the sketch of the phase diagram that there is a *unique steady
+state* at $(K*<\kappa, m^*)$. For any state with $K>\kappa$, the natural tendency is
+for $K$ to decrease, and Robinson can only exacerbate this since $c\geq0$.
+
+We also notice that this steady state is a *saddle point*;
+small distirbance in the direction of decreasing $m$ (i.e. increating $c$) while
+decreasing $K$ will evolve towards $m,K\to0$. The arm starting from a small
+deviation of increased $K$ and decreased $c$ will evolve towards $m\to\infty, K\to\kappa$.
+
+[[file:./hw1q4.png]]
