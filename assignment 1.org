@@ -63,14 +63,14 @@ by $\dot{K}=f(K), sign(f'(K)) = sign (\kappa-K)$ for some environment capacity $
 #+NAME: Kdot
   \begin{equation} H_m = f - c = \dot{K} \end{equation}
 
-- No Bequests:
+- Transversality Condition (No Bequests?):
   \begin{equation} \lim_{t\to\infty} m(t)\, u(t)\, e^{-\rho t} = 0 \end{equation}
 
 * Q4 Phase Portrait
 Equations 7 \ref{Kdot} and 6 \ref{mdot} together yield the phase plane equation
 \[\frac{dK}{dm} = \frac{f-c}{m(\rho-f')}\]
 
-Note that the $m$ -isocline is given by $\rho = f'$, which, given that $f''<0$
+Note that the $m$ -isocline is given by $\rho = f'$, which, given that $f''<0$,
 has at most one solution[fn::by the mean value theorem] for $f'$ and therefore for $K$.
 Assume this exists and denote it by $K^*$. Note that clearly $0<K^*<\kappa$.
 
@@ -82,7 +82,7 @@ zero there[fn::for a concrete example, consider logistic equation $f=K(A-K)$], a
 minimum corresponding to $f'=0$.
 
 We see from the sketch of the phase diagram that there is a *unique steady
-state* at $(K*<\kappa, m^*)$. For any state with $K>\kappa$, the natural tendency is
+state* at $(K^*<\kappa, m^*)$. For any state with $K>\kappa$, the natural tendency is
 for $K$ to decrease, and Robinson can only exacerbate this since $c\geq0$.
 
 We also notice that this steady state is a *saddle point*;
