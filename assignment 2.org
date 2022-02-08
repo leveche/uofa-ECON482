@@ -1,0 +1,63 @@
+#+STARTUP: indent
+#+OPTIONS: toc:nil num:nil
+#+TITLE: ECON 482 Homework 2
+#+LaTeX_CLASS_OPTIONS: [article,letterpaper,times,10pt,margin=0.7in]
+#+LATEX_HEADER: \usepackage[margin=0.7in]{geometry}
+#+AUTHOR: %%AUTHOR%%
+
+#+DATE: due: February 10^{th}, 2022
+#+LaTeX_HEADER: \usepackage{lastpage}
+#+LATEX_HEADER: \usepackage{fancyhdr}
+#+LATEX_HEADER: \usepackage{amsmath}
+#+LATEX_HEADER: \usepackage{bbm}
+#+LATEX_HEADER: \pagestyle{fancy}
+#+LATEX_HEADER: \chead{}
+#+LATEX_HEADER: \lhead{total pages: \pageref{LastPage}}
+#+LATEX_HEADER: \rhead{this is page \thepage}
+#+LATEX_HEADER: \lfoot{}
+#+LATEX_HEADER: \cfoot{ECON 482 Winter 2022}
+#+LATEX_HEADER: \rfoot{}
+#+LATEX: \renewcommand{\footrulewidth}{0.4pt}
+#+LATEX_HEADER: \newcommand{\Lagr}{\mathcal{L}}
+
+#+LATEX: \linespread{1.5}
+#+LATEX: \newcommand\mathexp[2]{\mathbbm{E}_{#1}[#2]}
+
+* Q1
+Model \[p_t = \beta \mathexp{t}{p_{t+1}} + h_{t}\]
+for $0<\beta<1$.
+** Q1p1
+Successive forward iterations, together with the Law of Iterated Expectations, yield
+\[ p_t = \beta (\beta \mathexp{t+1}{p_t+2} + h_{t+1}) = \ldots = \sum_{k=0}^{n-1} h_{t+k}\beta^{k} + \mathexp{t}{\mathexp{t+1}{\ldots\mathexp{t+n}{p_{t+n}}}}
+       = \sum_{k=0}^{n-1} h_{t+k}\beta^{k} + \beta^n \mathexp{t}{p_{t+n}}
+\]
+
+We demand that neither the index of economic activity nor the price index itself grow faster than can be compensated by the discount factor $\beta$:
+\[\lim_{n\to\infty} h_{t+n}\beta^n < \infty,\ \ \ \lim_{n\to\infty} p_{t+n}\beta^{n} = 0\]
+
+If we further suppose that $h$ can be represented as a linear superposition of
+two components[fn::e.g. split into drift + risk] $h_t = f_t + e_t$, we have for the present price
+\[p_t = \sum_0^{\infty} h_{t+k}\beta^k = \sum_0^\infty f_{t+k} \beta^k + \sum_0^\infty g_{t+k} \beta^k \]
+
+** Q1p2
+Take $\beta=\frac{1}{2}, h_t=f_t=1, g_t=0$. Summing the geometric series, we get \[\tilde{p_t} = \sum_0^\infty 2^{-k} = 2\]
+Note that $\tilde{p_t}=\tilde{p}_{t+K}=:\tilde{p}$ for any $k\geq0$.
+** Q1p3
+Now take $f_t=1$, $g_{t+k} = \mathbbm{1}_{k\geq2} = 1 - \mathbbm{1}_{\{0,1\}}$, so that
+\[p_t = \tilde{p} + \left(\tilde{p} - 1 - \frac{1}{2}\right) = \tilde{p} + \frac{1}{2} = 2\frac{1}{2}\]
+** Q1p4
+Clearly $p_t-\tilde{p} = \frac{1}{2}$, while $p_t = \tilde{p} + (\tilde{p}-1) =
+\tilde{p} + 1 = 3$. Price rises in the first period as the improvement in the
+fundamentals becomes more imminent.
+** Q1p5
+We now have two equiprobable scenarios: $f_t = 1, g_t=0$, or $f_t = 1, g_t =
+2\cdot\mathbbm{1}_{k\geq2}$. We have, recalling the above result,
+\[\mathexp{}{p_t} = \frac{1}{2}\cdot\left(\tilde{p} + 2\cdot(\tilde{p} + \tilde{p}-1-\frac{1}{2})\right) = \frac{3}{2}\tilde{p} + \frac{1}{2} = 3\frac{1}{2}\]
+As well as
+\[\mathexp{}{p_{t+1}} = \frac{1}{2}\cdot\left(\tilde{p} + 2\cdot(\tilde{p} + \tilde{p}-1)\right) = \frac{3}{2}\tilde{p} + 1 = 4\]
+Verify that the governing dynamics holds: $p_t= 2\frac{1}{2} = \frac{1}{2}\cdot3 + 1 = \beta\mathexp{t}{p_{t+1}} + h_t$.
+At $t=2$, there is no more uncertainty, and if the pessimistic scenario is realized, we have $p_{t+k} = \tilde{p} = 2$ for all $k\geq2$, as in part (2).
+
+We observe a 50% price drop between periods $t=1$ and $t=2$, but note that the
+prices at every period correspond to a risk-neutral valuation of the housing
+index, and are in line with the exogenous uncertainty inherent in $h_t$.
