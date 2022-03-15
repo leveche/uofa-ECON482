@@ -1,0 +1,57 @@
+#+STARTUP: indent
+#+OPTIONS: toc:nil num:nil
+#+TITLE: ECON 482 Homework 3
+#+LaTeX_CLASS_OPTIONS: [article,letterpaper,times,10pt,margin=0.7in]
+#+LATEX_HEADER: \usepackage[margin=0.7in]{geometry}
+#+AUTHOR: %%AUTHOR%%
+
+#+DATE: due: March 15^{th}, 2022
+#+LaTeX_HEADER: \usepackage{lastpage}
+#+LATEX_HEADER: \usepackage{fancyhdr}
+#+LATEX_HEADER: \usepackage{amsmath}
+#+LATEX_HEADER: \usepackage{bbm}
+#+LATEX_HEADER: \pagestyle{fancy}
+#+LATEX_HEADER: \chead{}
+#+LATEX_HEADER: \lhead{total pages: \pageref{LastPage}}
+#+LATEX_HEADER: \rhead{this is page \thepage}
+#+LATEX_HEADER: \lfoot{}
+#+LATEX_HEADER: \cfoot{ECON 482 Winter 2022}
+#+LATEX_HEADER: \rfoot{}
+#+LATEX: \renewcommand{\footrulewidth}{0.4pt}
+#+LATEX_HEADER: \newcommand{\Lagr}{\mathcal{L}}
+
+#+LATEX: \linespread{1.5}
+#+LATEX: \newcommand\mathexp[2]{\mathbbm{E}_{#1}[#2]}
+
+* Q1
+OLG Model with utility \[ (1+\theta)u(c_{y;t}, c_{o;t+1}) = c_{y;t}^{1-\theta} + \beta c_{o;t+1}^{1-\theta}\]
+with $\beta^{-1} := 1+\rho$, and CD production $y_t = k_t^\alpha$
+** Q1p1
+Consumption while young: \[w_t = s_t + c_{y;t}\] when old \[c_{o;t+1} = s_t R_{t+1}\] where $w_t$ wages earned while young, $R_{1+t} := 1+r_{1+t}$ gross interest rate on capital.
+Combine to eliminate the savings $s_t$:
+\[ c_{y;t} + c_{o;t+1} R_{1+t}^{-1} = w_t \]
+Lagrangian for the optimization program $\Lagr = u - \lambda_t (w_t - c_{y;t} -c_{o;t+1})$, and the first-order conditions are written as
+\[ \Lagr_{c_y} = c_{y;t}^{-\theta} - \lambda_t = 0 = \Lagr_{c_0} = \beta c_{o;t+1}^{-\theta} - \lambda_t R_{1+t}^{-1} \]
+Eliminate $\lambda_t$ to obtain intertemporal substitution condition
+\[ \left( \frac{c_{y;t}}{c_{o;t+1}} \right)^\theta = \frac{1+\rho}{1+r_{t+1}} =: \Lambda^{\theta}\]
+Together with the budget restriction, this yields consumption in the first period
+\[\frac{c_{y;t}}{w_t} = \left( 1+ \Lambda^{-1} R_{t+1}^{-1}\right)^{-1} = \frac{\Lambda R_{1+t}}{1+ \Lambda R_{t+1}} \]
+And the savings ratio \[\sigma := \frac{s_t}{w_t} = 1 - \frac{c_{y;t}}{w_t} = \left(1+\Lambda R_{1+1}\right)^{-1} \]
+** Q1p2
+We can see that the savings ratio $\sigma$ is constant when \[R_{t+1}\Lambda = (1+r_{t+1})^{1-1/\theta}(1+\rho)^{1/\theta} = const \]
+That is, the rate of rent of capital is constant and is related to the individual's `impatience' rate $\rho$ by the relation above.
+** Q1p3
+Equilibria on the labor and capital markets yields the usual conditions $y'(k_t) = r_t, \ y(k_t) - k_t y'(k_t) = w_t$.
+Given the form of the production function we have \[w_t = (1-\alpha) k_t^\alpha\]
+Thus the governing equation for $k$, at constant savings ratio, is \[dk_{t+1} = s_w w' dk_t = \sigma \alpha (1-\alpha) k_t^{\alpha-1} dk_t\]
+With the solution \[k_{t+1} = \sigma (1-\alpha) k_t^\alpha \]
+and the steady-state \[k = \left(\sigma(1-\alpha)\right)^{\frac{1}{1-\alpha}}\]
+** Q1p4
+Taxing the capital will effectively change $r_{t+1}$ and therefore $\sigma$ in the equation above:
+$\tilde{k} = k \left(\frac{\tilde{\sigma}}{\sigma}\right)^\frac{1}{1-\alpha}$,
+where $\tilde{\sigma} = \frac{1}{1+((1+r_t)(1-\tau))^{1-1/\sigma}(1+\rho)^{1/\sigma}}$
+** Q1p5
+Taxing the wages would change the consumer's budget[fn::but not the firm's since labor is supplied inelastically, so the consumer bears the entire tax amount]
+and thus the governing equation for $k_t$: savings come out of discretionary income,
+so that $\sigma$ becomes $\sigma(1-\tau_w)$
+and thus the steady-state \[\tilde{\tilde{k}} = (1-\tau_w)^\frac{1}{1-\alpha} k\]
