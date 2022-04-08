@@ -1,0 +1,79 @@
+#+STARTUP: indent
+#+OPTIONS: toc:nil num:nil
+#+TITLE: ECON 482 Homework 4
+#+LaTeX_CLASS_OPTIONS: [article,letterpaper,times,10pt,margin=0.7in]
+#+LATEX_HEADER: \usepackage[margin=0.7in]{geometry}
+#+AUTHOR: %%AUTHOR%%
+
+#+DATE: due: March 29^{th}, 2022
+#+LaTeX_HEADER: \usepackage{lastpage}
+#+LATEX_HEADER: \usepackage{fancyhdr}
+#+LATEX_HEADER: \usepackage{amsmath}
+#+LATEX_HEADER: \usepackage{bbm}
+#+LATEX_HEADER: \pagestyle{fancy}
+#+LATEX_HEADER: \chead{}
+#+LATEX_HEADER: \lhead{total pages: \pageref{LastPage}}
+#+LATEX_HEADER: \rhead{this is page \thepage}
+#+LATEX_HEADER: \lfoot{}
+#+LATEX_HEADER: \cfoot{ECON 482 Winter 2022}
+#+LATEX_HEADER: \rfoot{}
+#+LATEX: \renewcommand{\footrulewidth}{0.4pt}
+#+LATEX_HEADER: \newcommand{\Lagr}{\mathcal{L}}
+
+#+LATEX: \linespread{1.5}
+#+LATEX: \newcommand\mathexp[2]{\mathbbm{E}_{#1}[#2]}
+
+* Q1
+Model
+\begin{align}
+m_t - p_t & = -\gamma (\zeta_{t+1} - p_t) \\ \zeta_{t+1} & = \lambda p_t + (1-\lambda) \zeta_t
+\end{align}
+where $m_t$ money supply, $p_t$ price level, $\zeta_{t+1}$ private sector's `time- $t$ expectation' of the price level at time $t+1$.
+** Q1 (a)
+Eliminate $p_t$ from the model: \[ p_t = \frac{m_t + \gamma \zeta_{t+1}}{1+\gamma} = \lambda^{-1} (\zeta_{t+1} - (1-\lambda) \zeta_t) \]
+Rearrange to express $\zeta_{t+1}$: \[ \zeta_{t+1}\left( \frac{1}{\lambda} - \frac{\gamma}{1+\gamma}\right) = \frac{1}{1+\gamma} m_t + \frac{1-\lambda}{\lambda}\zeta_t \]
+A trivial further rearrangement yields the required result:
+\[ \zeta_{t+1} = \frac{(1-\lambda)(1+\gamma) \zeta_t + \lambda m_t}{1 + \gamma (1-\lambda)}
+\]
+** Q1 (b), (c)
+We have shown above that $\zeta_{t+1} = A \zeta_t + B m_t$, for constant $A,B$. The partial sum of this arithmetic-geometric series is
+\[ \zeta_{t+1} = B (m_t + A m_{t-1} + A^2 m_{t-2} \ldots + A^{k} m_{t-k}) + A^{k} \zeta_{t+1-k} \]
+If $m_t$ is bounded from below by a strictly positive amount, the series has a finite limit provided
+\[ \left|\frac{(1-\lambda)(1+\gamma)}{1+\gamma(1-\lambda)}\right| < 1\] For $\gamma>0$, this is given if \[ 0 < \lambda < 1\]
+and the sum is \[\zeta_{t+1} = \frac{B}{1-A} \bar{m} = \frac{\lambda}{1+\gamma(1-\lambda)}\cdot\frac{1+\gamma(1-\lambda)}{1+\gamma(1-\lambda)-(1-\lambda)(1+\gamma)}\bar{m} = \bar{m}\]
+** Q1 (d)
+In terms of $m_t$, the price level is given by $(1+\gamma) p_t = m_t + \gamma\zeta_{t+1}$, so that
+\[ (1+\gamma) p_t = m_t + \frac{\lambda}{1+\gamma(1-\lambda)} \sum_{k=0}^T \left(\frac{1-\lambda(1+\gamma)}{1+\gamma(1-\lambda)}\right)^k m_{t-k}\]
+** Q1 (e)
+For a constant money supply $m_t = \bar{m}$, we have $\zeta_{t+1} \to \bar{m}$, so that $p_t = \bar{m}\frac{1+\gamma\frac{\zeta_{t+1}}{\bar{m}}}{1+\gamma} \to \bar{m}$. In particular, $\zeta_{t+1} \to \zeta_t \to p_t$
+
+
+We have shown the *converse* of Friedman's statement on inflation; a stable money supply is required for stable price level.
+The model we are considering does not incorporate any real-sector variables, thus is incapable of predicting price changes due to real shocks such as the one(s) we are experiencing since 2020, or e.g. ones that lead to a `year of revolutions' in 1848.
+
+* Q2
+Optimization program
+\begin{align}
+\max \sum_0^\infty \beta^t u(c_t,m_t,n_t) \\
+s.t. \ \ \ c_t + k_{t+1} + k_t + (1+\pi_t) m_{t+1} - m_t \leq f(k_t,n_t) + v_t
+\end{align}
+where $P_t$ is the price level, $\pi_t$ is the inflation defined
+as $\pi_t = \frac{P_{t+1}-P_t}{P_t}$, $v_t$ are transfers given by $v_t = \frac{M_{t+1}}{P_t} - m_t =  (1+\pi_t)m_{t+1} - m_t$
+
+** Q2 (a)
+Note that the expression for $v_t$ occurs on both sides of the constraint inequality and can be eliminated:
+\[c_t + (k_{t+1} - k_t) \leq f(k_t,n_t) \]
+Since $f_1,f_2 >0$, we expect the production to be operating at the efficient frontier in order to maximize consumption:
+\[c_t + (k_{t+1} - k_t) = f(k_t, n_t)\]
+Recalling that $k_{t+1}-k_t$ is investment[fn::clearly there's no capital depreciation in this model], we recognize the last expression as real-terms
+balance of national accounts for a closed economy $Y=C+I$, which has to hold at every period $t$.
+** Q2 (b)
+We can view the problem as a static optimization program \[\Lagr = \sum_t \beta^t u(c_t, m_t, n_t) + \lambda_t\beta^t \left(f(k_t,n_t)-c_t-k_{t+1} +k_t\right)\]
+
+The first-order conditions yield
+\begin{align}
+\partial_{c_t} \Lagr  & = \beta^t ( u_{c_t} - \lambda_t ) & = 0 \\
+\partial_{m_t} \Lagr  & = \beta^t u_{m_t} & = 0 \\
+\partial_{n_t} \Lagr  & = \beta^t (u_{n_t} - \lambda_t f_{n_t}) = 0 \\
+\partial_{m_t} \Lagr  & = \beta^t ()
+\end{align}
